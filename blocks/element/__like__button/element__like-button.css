@@ -1,0 +1,10 @@
+.element__like-button {
+  background-image: url(../../../images/love_disabled.svg);
+  width: 22px;
+  height: 19px;
+  border: none;
+  display: inline;
+  align-self: center;
+  background-color: white;
+  cursor: pointer;
+}

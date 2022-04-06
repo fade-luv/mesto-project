@@ -1,0 +1,8 @@
+.element__container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 25px;
+  padding-left: 21px;
+  padding-right: 15px;
+  padding-bottom: 31px;
+}
