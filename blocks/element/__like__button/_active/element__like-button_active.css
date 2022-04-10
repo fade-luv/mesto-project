@@ -1,0 +1,10 @@
+.element__like-button_active {
+  background-image: url(../../../../images/love_active.svg);
+  width: 22px;
+  height: 19px;
+  border: none;
+  display: inline;
+  align-self: center;
+  background-color: white;
+  cursor: pointer;
+}

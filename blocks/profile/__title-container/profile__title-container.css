@@ -1,0 +1,5 @@
+.profile__title-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}

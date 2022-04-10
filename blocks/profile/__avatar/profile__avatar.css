@@ -2,3 +2,17 @@
   border-radius: 50%;
   max-width: 120px;
 }
+
+@media screen and (max-width:540px){
+  .profile__avatar {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width:320px){
+  .profile__avatar {
+    display: block;
+    margin: 0 auto;
+  }
+}

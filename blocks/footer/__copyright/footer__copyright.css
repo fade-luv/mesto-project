@@ -8,6 +8,28 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-
   color: #545454;
+}
+
+@media screen and (max-width: 940px) {
+  .footer__copyright {
+    margin: 0 auto;
+    width: 590px;
+  }
+}
+
+@media screen and (max-width: 555px) {
+  .footer__copyright {
+    max-width: 282px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .footer__copyright {
+    max-width: 282px;
+    margin: 0 auto;
+    padding-top: 48px;
+    padding-bottom: 36px;
+  }
 }

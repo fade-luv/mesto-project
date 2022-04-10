@@ -4,3 +4,25 @@
   padding-top: 36.25px;
   margin-bottom: 50px;
 }
+
+@media screen and (max-width:920px){
+  .profile {
+    padding-right: 20px;
+  }
+}
+
+@media screen and (max-width:540px){
+  .profile {
+    display: block;
+    padding-right: 0;
+  }
+}
+
+
+
+@media screen and (max-width:320px){
+  .profile {
+    display: block;
+    margin-bottom: 36px;
+  }
+}

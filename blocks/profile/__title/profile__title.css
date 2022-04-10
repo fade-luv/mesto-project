@@ -5,4 +5,21 @@
   font-weight: 500;
   font-size: 42px;
   line-height: 48px;
+  margin: 0;
+}
+
+@media screen and (max-width:710px){
+  .profile__title {
+    font-size: 24px;
+    text-align: center;
+    
+  }
+}
+
+@media screen and (max-width:320px){
+  .profile__title {
+    font-size: 27px;
+    text-align: center;
+    
+  }
 }

@@ -1,3 +1,15 @@
 .element__image {
   max-width: 282px;
 }
+
+
+@media screen and (max-width:630px) {
+  .element__image {
+  max-width: 250px;
+}
+
+@media screen and (max-width:554px) {
+  .element__image {
+  max-width: 282px;
+}
+}

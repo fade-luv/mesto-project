@@ -2,3 +2,30 @@
   display: flex;
   align-items: center;
 }
+
+@media screen and (max-width:1024px){
+  .profile__container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+
+@media screen and (max-width:540px){
+  .profile__container {
+    display: block;
+  }
+}
+
+
+@media screen and (max-width:320px){
+  .profile__container {
+    padding-left: 0;
+    padding-right: 0;
+    display: block;
+    max-width: 282px;
+    margin: 0 auto;
+    margin-top: 22px;
+    margin-bottom: 14px;
+  }
+}

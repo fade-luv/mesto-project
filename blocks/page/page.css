@@ -4,3 +4,12 @@
   margin: 0 auto;
   font-family: "Inter", ‘Arial’, sans-serif;
 }
+
+
+
+@media screen and (max-width:320px){
+  .page {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}

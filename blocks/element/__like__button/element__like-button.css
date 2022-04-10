@@ -3,8 +3,13 @@
   width: 22px;
   height: 19px;
   border: none;
-  display: inline;
-  align-self: center;
-  background-color: white;
   cursor: pointer;
+  background-color: white;
+  align-self: center;
+  padding-right: 14px;
 }
+
+.element__like-button:hover {
+  opacity: 0.5;
+}
+
