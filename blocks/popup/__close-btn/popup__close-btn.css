@@ -21,7 +21,12 @@
     width: 20px;
     height: 20px;
     right: 1px;
-    top: -30px;
-  }
-      
+    top: -38px;
+  }   
+}
+
+@media  screen and (max-width:320px) {
+  .popup__close-btn{
+   background-size: cover;
+  }   
 }

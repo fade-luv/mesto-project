@@ -3,3 +3,9 @@
   justify-content: center;
   margin-top: 22px;
 }
+
+@media screen and (max-width:322px){
+  .profile__title-container {
+  max-width: 322px;
+}
+}

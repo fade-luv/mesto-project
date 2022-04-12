@@ -22,10 +22,9 @@
   .profile__container {
     padding-left: 0;
     padding-right: 0;
-    display: block;
     max-width: 282px;
     margin: 0 auto;
-    margin-top: 22px;
+    margin-top: 0;
     margin-bottom: 14px;
   }
 }

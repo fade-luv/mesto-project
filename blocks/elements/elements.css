@@ -18,14 +18,13 @@
     grid-template-columns: repeat(2, 250px);
     column-gap: 25px;
     justify-content: center;
+    gap: 18px;
   }
 }
 
 @media screen and (max-width: 554px) {
   .elements {
     grid-template-columns: 281px;
-    column-gap: 25px;
-    justify-content: center;
   }
 }
 

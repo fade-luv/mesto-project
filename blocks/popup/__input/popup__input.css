@@ -10,12 +10,13 @@
 }
 
 .popup__input::placeholder {
-  font-family: "Inter";
+  font-family: "Inter", ‘Arial’, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+  
 }
 
 @media screen and (max-width: 560px) {
@@ -24,3 +25,9 @@
 
   }
 }
+@media screen and (max-width:320px){
+  .popup__input {
+    
+  }
+}
+

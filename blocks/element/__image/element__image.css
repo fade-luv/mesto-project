@@ -1,5 +1,8 @@
 .element__image {
   max-width: 282px;
+  object-fit: cover;
+  width: 282px;
+  height: 282px;
 }
 
 
@@ -7,9 +10,11 @@
   .element__image {
   max-width: 250px;
 }
+}
 
 @media screen and (max-width:554px) {
   .element__image {
   max-width: 282px;
 }
 }
+
