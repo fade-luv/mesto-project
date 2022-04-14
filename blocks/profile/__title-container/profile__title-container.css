@@ -1,11 +1,23 @@
 .profile__title-container {
   display: flex;
-  justify-content: center;
-  margin-top: 22px;
+  width: 340px;
+  justify-content: space-between;
+}
+@media screen and (max-width:710px){
+  .profile__title-container{
+  width: 200px;
+  margin-left: 50px;
+}
+}
+
+@media screen and (max-width:540px){
+  .profile__title-container{
+  margin: 0 auto;
+}
 }
 
 @media screen and (max-width:322px){
   .profile__title-container {
-  max-width: 322px;
+  width: 240px;
 }
 }

@@ -21,12 +21,12 @@
             <div class="profile__info">
               <div class="profile__title-container">
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
-                <button type="submit" class="profile__edit-button"></button>
+                <button type="button" class="profile__edit-button"></button>
               </div>
               <p class="profile__subtitle">Исследователь океана</p>
             </div>
           </div>
-          <button type="submit" class="profile__button"></button>
+          <button class="profile__button"></button>
         </section>
         <section class="elements">
           <div class="element">
@@ -37,7 +37,7 @@
             />
             <div class="element__container">
               <h2 class="element__name">Карачаевск</h2>
-              <button type="submit" class="element__like-button"></button>
+              <button type="button" class="element__like-button"></button>
             </div>
           </div>
           <div class="element">
@@ -48,7 +48,7 @@
             />
             <div class="element__container">
               <h2 class="element__name">Гора Эльбрус</h2>
-              <button type="submit" class="element__like-button"></button>
+              <button type="button" class="element__like-button"></button>
             </div>
           </div>
           <div class="element">
@@ -59,7 +59,7 @@
             />
             <div class="element__container">
               <h2 class="element__name">Домбай</h2>
-              <button type="submit" class="element__like-button"></button>
+              <button type="button" class="element__like-button"></button>
             </div>
           </div>
           <div class="element">
@@ -70,7 +70,7 @@
             />
             <div class="element__container">
               <h2 class="element__name">Гора Эльбрус</h2>
-              <button type="submit" class="element__like-button"></button>
+              <button type="button" class="element__like-button"></button>
             </div>
           </div>
           <div class="element">
@@ -81,7 +81,7 @@
             />
             <div class="element__container">
               <h2 class="element__name">Домбай</h2>
-              <button type="submit" class="element__like-button"></button>
+              <button type="button" class="element__like-button"></button>
             </div>
           </div>
           <div class="element">
@@ -92,31 +92,40 @@
             />
             <div class="element__container">
               <h2 class="element__name">Карачаево-Черкессия</h2>
-              <button type="submit" class="element__like-button"></button>
+              <button type="button" class="element__like-button"></button>
             </div>
           </div>
         </section>
-        <footer class="footer">
-          <p class="footer__copyright">© 2020 Mesto Russia</p>
-        </footer>
       </main>
-
+      <footer class="footer">
+        <p class="footer__copyright">© 2020 Mesto Russia</p>
+      </footer>
       <div class="popup">
         <div class="popup__container">
           <h2 class="popup__title">Редактировать профиль</h2>
           <form action="URL" name="Edit-profile-form">
-          <input type="text" name="title" placeholder="Жак-Ив Кусто" class="popup__input" />
-          <input
-            type="text"
-            placeholder="Исследователь океана"
-            class="popup__input"
-            name="subtitle"
-          />
-          <input type="submit" name="save" value="Сохранить" class="popup__btn" />
+            <input
+              type="text"
+              name="title"
+              placeholder="Жак-Ив Кусто"
+              class="popup__input"
+            />
+            <input
+              type="text"
+              placeholder="Исследователь океана"
+              class="popup__input"
+              name="subtitle"
+            />
+            <input
+              type="submit"
+              name="save"
+              value="Сохранить"
+              class="popup__btn"
+            />
           </form>
-          <button type="submit" class="popup__close-btn"></button>
+          <button type="button" class="popup__close-btn"></button>
         </div>
-        <div class="popup__overlay"></div>
+        <div class="popup__overlay"></div> <!-- тег, который отвечает за размытие фона модального окна -->
       </div>
     </div>
   </body>
