@@ -8,3 +8,5 @@
 
 Реализованы интерактивные элементы (hover)
 Реализовано модальное окно (blocks/pupup)
+
+https://fade-luv.github.io/kk/index.html
