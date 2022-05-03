@@ -20,81 +20,29 @@
             <img src="images/avatar.jpg" alt="avatar" class="profile__avatar" />
             <div class="profile__info">
               <div class="profile__title-container">
-                <h1 class="profile__title">Жак-Ив Кусто</h1>
+                <h1 class="profile__title">Бойко Сергей</h1>
                 <button type="button" class="profile__edit-button"></button>
               </div>
-              <p class="profile__subtitle">Исследователь океана</p>
+              <p class="profile__subtitle">Инженер технической поддержки66</p>
             </div>
           </div>
           <button type="button" class="profile__button"></button>
         </section>
         <section class="elements">
-          <div class="element">
-            <img
-              src="images/karachaevsk.jpg"
-              alt="photo karachaevsk place"
-              class="element__image"
-            />
-            <div class="element__container">
-              <h2 class="element__name">Карачаевск</h2>
-              <button type="button" class="element__like-button"></button>
+          <template class="element-template">
+            <div class="element">
+              <img
+                src="images/karachaevsk.jpg"
+                alt="photo karachaevsk place"
+                class="element__image"
+              />
+              <div class="element__container">
+                <h2 class="element__name">Карачаевск</h2>
+                <button type="button" class="element__like-button"></button>
+              </div>
+              <button class="element__delete-button"></button>
             </div>
-          </div>
-          <div class="element">
-            <img
-              src="images/elbrus.jpg"
-              alt="photo elbrus place"
-              class="element__image"
-            />
-            <div class="element__container">
-              <h2 class="element__name">Гора Эльбрус</h2>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img
-              src="images/dombay.jpg"
-              alt="photo dombay place"
-              class="element__image"
-            />
-            <div class="element__container">
-              <h2 class="element__name">Домбай</h2>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img
-              src="images/elbrus.jpg"
-              alt="photo elbrus place"
-              class="element__image"
-            />
-            <div class="element__container">
-              <h2 class="element__name">Гора Эльбрус</h2>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img
-              src="images/dombay.jpg"
-              alt="photo dombay place"
-              class="element__image"
-            />
-            <div class="element__container">
-              <h2 class="element__name">Домбай</h2>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img
-              src="images/karachaevsk.jpg"
-              alt="photo kharachevo-cherkessiya place"
-              class="element__image"
-            />
-            <div class="element__container">
-              <h2 class="element__name">Карачаево-Черкессия</h2>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
+          </template>
         </section>
       </main>
       <footer class="footer">
@@ -108,12 +56,12 @@
               type="text"
               name="title"
               placeholder="Жак-Ив Кусто"
-              class="popup__input"
+              class="popup__input popup__name"
             />
             <input
               type="text"
               placeholder="Исследователь океана"
-              class="popup__input"
+              class="popup__input popup__subname"
               name="subtitle"
             />
             <input
@@ -126,6 +74,54 @@
           <button type="button" class="popup__close-btn"></button>
         </div>
       </div>
+
+      <div class="popup popup_new-card">
+        <div class="popup__container">
+          <h2 class="popup__title">Новое место</h2>
+          <form action="URL" name="Edit-profile-form">
+            <input
+              type="text"
+              name="title"
+              placeholder="Название"
+              class="popup__input popup__name"
+              value="Название карточки"
+            />
+            <input
+              type="text"
+              placeholder="Ссылка на карточку"
+              class="popup__input popup__subname"
+              name="subtitle"
+              value=""
+            />
+            <input
+              type="submit"
+              name="save"
+              value="Создать"
+              class="popup__btn"
+            />
+          </form>
+          <button
+            type="button"
+            class="popup__close-btn popup-new__close-btn"
+          ></button>
+        </div>
+      </div>
+
+      <div class="popup popupGelery">
+        <div class="wrapper">
+          <img src="images/karachaevsk.jpg"  class="popup__img">
+        <p class="popupGelery__text">123</p>
+          
+          <button
+            type="button"
+            class="popup__close-btn popup-new__close-btn popup__close-gelery"
+          ></button>
+        </div>
+        
+        
+      </div>
+      
     </div>
+    <script src="script.js"></script>
   </body>
 </html>

@@ -1,4 +1,9 @@
 .element {
   background-color: white;
   border-radius: 10px;
+  position: relative;
+}
+
+.element img {
+  min-height: 282px;
 }

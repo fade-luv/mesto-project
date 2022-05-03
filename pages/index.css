@@ -30,5 +30,10 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/popup.css);
+@import url(../blocks/element/__delete-button/element__delete-button.css);
+@import url(../blocks/popupGelery/popupGelery.css);
+@import url(../blocks/popup/__img/popup__img.css);
+@import url(../blocks/popup/__close-gelery/popup__close-gelery.css);
+@import url(../blocks/popupGelery/__text/popupGelery__text.css);
 
 
