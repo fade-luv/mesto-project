@@ -44,7 +44,8 @@ const initialCards = [
 
 
 formElementNew.addEventListener('submit',function (params) {
-  newPopup.style.display = "none";
+  newPopup.style.visibility = "hidden";
+  newPopup.style.opacity = 0;
 });
 
 
@@ -111,7 +112,9 @@ function formSubmitHandler(evt) {
  
 formElement.addEventListener('submit',formSubmitHandler);
 formElement.addEventListener('submit',function (params) {
-  popup.style.display = "none";
+  popup.style.visibility = "hidden";
+  popup.style.opacity = 0;
+  
 });
 
 
