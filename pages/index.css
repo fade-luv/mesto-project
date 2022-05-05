@@ -35,5 +35,6 @@
 @import url(../blocks/popup/__img/popup__img.css);
 @import url(../blocks/popup/__close-gelery/popup__close-gelery.css);
 @import url(../blocks/popupGelery/__text/popupGelery__text.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 
 
