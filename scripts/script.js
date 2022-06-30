@@ -173,6 +173,43 @@ editProfileformElement.addEventListener('submit',formSubmitProfileInfoHandler);
 
 
 
+const formElement = document.querySelector('.form');
+const formInput = formElement.querySelector('.popup__input');
+const formError = formElement.querySelector(`.${formInput.id}-error`);
+
+
+
+const showInputError = (element, errorMessage) => {
+  element.classList.add('form__input_type_error');
+  
+  formError.textContent = errorMessage;
+  formError.classList.add('form__input-error_active');
+};
+
+const hideInputError = (element) => {
+  element.classList.remove('form__input_type_error');
+  formError.classList.remove('form__input-error_active');
+  formError.textContent = '';
+};
+
+const isValid = () => {
+  if (!formInput.validity.valid) {
+    // Передадим сообщение об ошибке вторым аргументом
+    showInputError(formInput, formInput.validationMessage);
+  } else {
+    hideInputError(formInput);
+  }
+};
+ 
+formElement.addEventListener('submit', function (evt) {
+  // Отменим стандартное поведение по сабмиту
+  evt.preventDefault();
+});
+
+// Вызовем функцию isValid на каждый ввод символа
+formInput.addEventListener('input', isValid); 
+
+
 
 
 
