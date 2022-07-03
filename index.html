@@ -59,6 +59,7 @@
               placeholder="Имя"
               class="popup__input popup__name"
               minlength="2" maxlength="30"
+              required
             />
             <span class="name-input-error "></span> 
             <input
@@ -67,14 +68,15 @@
               placeholder="Профессиональная деятельность"
               class="popup__input popup__subname"
               name="subtitle"
-              minlength="2" maxlength="30"
+              minlength="2" maxlength="200"
+              required
             />
             <span class="subname-input-error "></span> 
             <button
               type="submit"
               name="save"
               value="Сохранить"
-              class="popup__btn"
+              class="popup__btn "
             />Сохранить</button>
           </form>
           <button type="button" class="popup__close-btn"></button>
@@ -83,27 +85,33 @@
       <div class="popup popup_new-card">
         <div class="popup__container">
           <h2 class="popup__title">Новое место</h2>
-          <form class="form" action="URL" name="Edit-profile-form">
+          <form class="form" action="URL" name="Edit-profile-form" novalidate>
             <input
+              id="placeName-input"
               type="text"
               name="title"
               placeholder="Название"
               class="popup__input popup__name"
+              minlength="2" maxlength="30"
+              required
             />
-            <span class="form__input-error"></span>
+            <span class="placeName-input-error"></span>
             <input
-              type="text"
+              id="placeLink-input"
+              type="url"
               placeholder="Ссылка на карточку"
               class="popup__input popup__subname"
               name="subtitle"
               value=""
+              required
             />
-            <input
+            <span class="placeLink-input-error"></span>
+            <button
               type="submit"
               name="save"
               value="Создать"
               class="popup__btn"
-            />
+            >Создать</button>
           </form>
           <button
             type="button"

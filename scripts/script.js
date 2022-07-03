@@ -172,31 +172,48 @@ editProfileformElement.addEventListener('submit',formSubmitProfileInfoHandler);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 const popupForm = document.querySelector('.form');
 const popupFormInput = popupForm.querySelector('.popup__input');
+const formBtn = popupForm.querySelector('.popup__btn');
+
 
 const showInputError = (form,input, errorMessage) => {
 
- 
+  
   const popupFormError = form.querySelector(`.${input.id}-error`);
   popupFormError.textContent = errorMessage;
   popupFormError.classList.add('popup__input_error_active');
+  
   
 };
 
 const hideInputError = (form,input) => {
 
   let popupFormError = document.querySelector(`.${form.id}-error`);
-  
   popupFormError.classList.remove('popup__input_error_active');
   popupFormError.textContent = '';
- 
+  BtnActive();
+  
   
 };
 
 const isValid = (form, element) => {
   if (!element.validity.valid) {
     // Передадим сообщение об ошибке вторым аргументом
+    BtnDisable();
     showInputError(form, element, element.validationMessage);
   } else {
     hideInputError(element, form);
@@ -245,7 +262,27 @@ const enableValidation = () => {
   });
 };
 
-// Вызовем функцию
+
+function BtnDisable(params) {
+  btnList = Array.from(document.querySelectorAll('.popup__btn '));
+  btnList.forEach((btn) => {
+    btn.classList.add('popup__btn_disabled');
+    btn.disabled = true; 
+  })
+}
+function BtnActive(params) {
+ btnList = Array.from(document.querySelectorAll('.popup__btn '));
+  btnList.forEach((btn) => {
+    btn.classList.remove('popup__btn_disabled');
+    btn.disabled = false; 
+  })
+ 
+}
+
+function idEmpty(params) {
+  
+}
+BtnDisable();
 enableValidation(); 
 
 
