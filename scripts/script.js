@@ -172,43 +172,81 @@ editProfileformElement.addEventListener('submit',formSubmitProfileInfoHandler);
 
 
 
+const popupForm = document.querySelector('.form');
+const popupFormInput = popupForm.querySelector('.popup__input');
 
-const formElement = document.querySelector('.form');
-const formInput = formElement.querySelector('.popup__input');
-const formError = formElement.querySelector(`.${formInput.id}-error`);
+const showInputError = (form,input, errorMessage) => {
 
-
-
-const showInputError = (element, errorMessage) => {
-  element.classList.add('form__input_type_error');
+ 
+  const popupFormError = form.querySelector(`.${input.id}-error`);
+  popupFormError.textContent = errorMessage;
+  popupFormError.classList.add('popup__input_error_active');
   
-  formError.textContent = errorMessage;
-  formError.classList.add('form__input-error_active');
 };
 
-const hideInputError = (element) => {
-  element.classList.remove('form__input_type_error');
-  formError.classList.remove('form__input-error_active');
-  formError.textContent = '';
+const hideInputError = (form,input) => {
+
+  let popupFormError = document.querySelector(`.${form.id}-error`);
+  
+  popupFormError.classList.remove('popup__input_error_active');
+  popupFormError.textContent = '';
+ 
+  
 };
 
-const isValid = () => {
-  if (!formInput.validity.valid) {
+const isValid = (form, element) => {
+  if (!element.validity.valid) {
     // Передадим сообщение об ошибке вторым аргументом
-    showInputError(formInput, formInput.validationMessage);
+    showInputError(form, element, element.validationMessage);
   } else {
-    hideInputError(formInput);
+    hideInputError(element, form);
   }
 };
  
-formElement.addEventListener('submit', function (evt) {
+popupForm.addEventListener('submit', function (evt) {
   // Отменим стандартное поведение по сабмиту
   evt.preventDefault();
 });
 
-// Вызовем функцию isValid на каждый ввод символа
-formInput.addEventListener('input', isValid); 
 
+const setEventListeners = (popupForm) => {
+  // Находим все поля внутри формы,
+  // сделаем из них массив методом Array.from
+  const popupInputList = Array.from(popupForm.querySelectorAll('.popup__input'));
+
+ 
+  // Обойдём все элементы полученной коллекции
+  popupInputList.forEach((popupInputElement) => {
+    // каждому полю добавим обработчик события input
+    popupInputElement.addEventListener('input', () => {
+      // Внутри колбэка вызовем isValid,
+      // передав ей форму и проверяемый элемент
+      isValid(popupForm, popupInputElement)
+    });
+  });
+}; 
+
+const enableValidation = () => {
+  // Найдём все формы с указанным классом в DOM,
+  // сделаем из них массив методом Array.from
+  const formList = Array.from(document.querySelectorAll('.form'));
+ 
+
+  // Переберём полученную коллекцию
+  formList.forEach((popupForm) => {
+    popupForm.addEventListener('submit', (evt) => {
+      // У каждой формы отменим стандартное поведение
+      evt.preventDefault();
+    });
+
+    // Для каждой формы вызовем функцию setEventListeners,
+    // передав ей элемент формы
+    setEventListeners(popupForm);
+  });
+};
+
+// Вызовем функцию
+enableValidation(); 
 
 
 
