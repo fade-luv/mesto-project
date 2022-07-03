@@ -139,7 +139,7 @@ function formSubmitProfileInfoHandler(evt) {
 
 
 closeButtonGeleryPopup.addEventListener('click', function (params) {
-  closePopup(popupOpenImage );
+  closePopup(popupOpenImage);
 })
 
 
@@ -174,14 +174,23 @@ editProfileformElement.addEventListener('submit',formSubmitProfileInfoHandler);
 
 
 
+popupEditProfile.onclick = function(event) {
+    if ( event.target == popupEditProfile ) {
+        closePopup(popupEditProfile)
+    };
+};
 
+popupAddNewCard.onclick = function(event) {
+    if ( event.target == popupAddNewCard ) {
+        closePopup(popupAddNewCard)
+    };
+};
 
-
-
-
-
-
-
+popupOpenImage.onclick = function(event) {
+    if ( event.target == popupOpenImage ) {
+        closePopup(popupOpenImage)
+    };
+};
 
 
 
