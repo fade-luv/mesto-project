@@ -6,9 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: { main: './src/scripts/script.js' },
-  optimization: {
-            minimize: false
-        },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'script.js',
@@ -41,7 +38,9 @@ module.exports = {
     use: [MiniCssExtractPlugin.loader, {
       loader: 'css-loader',
       options: { url: false, importLoaders: 1 }
-    }]
+    },
+     'postcss-loader'
+  ]
   }
     ]
   },
