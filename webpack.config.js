@@ -5,7 +5,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
 
 module.exports = {
-  entry: { main: './src/scripts/script.js' },
+  entry: { main: './src/components/script.js' },
+  optimization: {
+            minimize: false
+        },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'script.js',
