@@ -1,41 +1,3 @@
-import { closePopup } from "./popup.js";
-import { popupEditProfile } from "./script.js";
-const popupForm = document.querySelector(".form");
-const popupInputName = document.querySelector(".popup__name");
-const profileName = document.querySelector(".profile__title"); // Получаем имя пользователя профиля
-const profileJobName = document.querySelector(".profile__subtitle"); // Получаем род деятельности пользователя
-const popupInputSubname = document.querySelector(".popup__subname");
-const popupSubmitButton = document.querySelector(".popup__btn");
-const popupCard = document.querySelector(".popup_new-card");
-const form = document.forms.place_form;
-
-/* Функция изменения Имени и Рода деятельности пользователя */
-function formSubmitProfileInfoHandler(evt) {
-  evt.preventDefault();
-  const nameValue = popupInputName.value;
-  const subNameValue = popupInputSubname.value;
-  profileName.textContent = nameValue;
-  profileJobName.textContent = subNameValue;
-}
-/* Функция изменения Имени и Рода деятельности пользователя */
-
-function FillUserInfo(params) {
-  popupInputName.value = profileName.textContent;
-  popupInputSubname.value = profileJobName.textContent;
-}
-
-FillUserInfo();
-
-popupForm.addEventListener("submit", function (evt) {
-  // Отменим стандартное поведение по сабмиту
-  evt.preventDefault();
-  closePopup(popupEditProfile);
-});
-
-form.addEventListener("submit", function (evt) {
-  closePopup(popupCard);
-});
-
 const showError = (formElement, inputElement, errorMessage, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.textContent = errorMessage;
@@ -44,7 +6,7 @@ const showError = (formElement, inputElement, errorMessage, config) => {
 
 const hideError = (formElement, inputElement, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(".popup__text_invalid");
+  inputElement.classList.remove(config.inputErrorMessage);
   errorElement.classList.remove(config.errorMessage);
   errorElement.textContent = "";
 };
@@ -73,7 +35,9 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   }
 };
 
-function buttonState(popupForm, config) {
+
+
+const setEventListeners = (popupForm, config) => {
   const inputList = Array.from(
     popupForm.querySelectorAll(config.inputSelector)
   );
@@ -85,17 +49,15 @@ function buttonState(popupForm, config) {
       toggleButtonState(inputList, buttonElement, config);
     });
   });
-}
-
-const setEventListeners = (popupForm, config) => {
-  buttonState(popupForm, config);
 };
 
-function isValid(config) {
+function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
 
   formList.forEach((popupForm) => {
-    popupForm.addEventListener("submit", (evt) => {});
+    popupForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
 
     setEventListeners(popupForm, config);
   });
@@ -108,8 +70,9 @@ const validationConfig = {
   errorMessage: "popup__input_error_active",
   submitButtonSelector: ".popup__btn",
   inactiveButtonClass: "popup__btn_disabled",
+  inputErrorMessage: "popup__text_invalid"
 };
 
-isValid(validationConfig);
 
-export { formSubmitProfileInfoHandler };
+
+export { enableValidation, validationConfig, toggleButtonState };
