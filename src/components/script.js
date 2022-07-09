@@ -1,6 +1,6 @@
 import "../pages/index.css";
 import { handleAddCard, renderCards } from "./card.js";
-import { closePopup, popup,} from "./popup.js";
+import { closePopup, popup, hendleClosePopup, profilePopup } from "./popup.js";
 import { enableValidation, validationConfig } from "./validate.js";
 const profileName = document.querySelector(".profile__title"); // Получаем имя пользователя профиля
 const popupInputName = document.querySelector(".popup__name");
@@ -9,6 +9,11 @@ const popupInputSubname = document.querySelector(".popup__subname");
 const editProfileformElement = document.querySelector(".popup form"); //получаем форму редактирования профиля
 const formElementNew = document.querySelector(".popup_new-card form");
 
+
+function disableButton(button) {
+  button.setAttribute("disabled", true);
+  button.classList.add(".popup__btn_disabled");
+}
 
 
 function fillUserInfo(params) {
@@ -24,7 +29,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameValue;
   profileJobName.textContent = subNameValue;
 
-  closePopup(popup);
+  closePopup(profilePopup);
 }
 
 function handleEscape(evt) {
@@ -35,8 +40,8 @@ function handleEscape(evt) {
 }
 
 enableValidation(validationConfig);
-
+hendleClosePopup();
 formElementNew.addEventListener("submit", handleAddCard);
 editProfileformElement.addEventListener("submit", handleProfileFormSubmit);
 renderCards();
-export { handleEscape, fillUserInfo, handleAddCard };
+export { handleEscape, fillUserInfo, handleAddCard, disableButton };

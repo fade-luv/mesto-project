@@ -1,5 +1,6 @@
-import { imagePrewiew, closePopup, popup } from "./popup.js";
+import { openImagePopup, closePopup, popup } from "./popup.js";
 import { enableValidation, validationConfig } from "./validate.js";
+import { disableButton } from "./script.js";
 const newCardName = document.querySelector(".popup_new-card .popup__place");
 const newCardSubName = document.querySelector(".popup_new-card .popup__link");
 const cardContainer = document.querySelector(".elements");
@@ -52,7 +53,7 @@ function createCard(name, link) {
     .querySelector(".element__delete-button")
     .addEventListener("click", deleteCard);
   cardImage.addEventListener("click", () =>
-    imagePrewiew(cardImage.alt, cardImage.src)
+    openImagePopup(cardImage.alt, cardImage.src)
   );
   return cardClone;
 }
@@ -64,14 +65,15 @@ function renderCards() {
 }
 
 function handleAddCard(evt) {
+  const submitButton = document.querySelector(".popup__btn-new-card");
   evt.preventDefault();
   const placeName = newCardName.value;
   const placeLink = newCardSubName.value;
   cardContainer.prepend(createCard(placeName, placeLink));
-  evt.target.reset();
   closePopup(evt.target.closest(".popup_opened"));
-  enableValidation(validationConfig);
-  
+  console.log(submitButton);
+  submitButton.classList.add("popup__btn_disabled");
+  evt.target.reset();
   
 
 }

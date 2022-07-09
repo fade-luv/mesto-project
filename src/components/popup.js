@@ -1,5 +1,6 @@
 import { handleEscape, fillUserInfo } from "./script.js";
-const popup = document.querySelector(".popup"); 
+
+const profilePopup = document.querySelector(".profile-popup"); 
 const closeButtonEditProfilePopup = document.querySelector(".popup__close-btn"); 
 const closeButtonGenerateCardPopup = document.querySelector(".popup-new__close-btn"); 
 const closeButtonGeleryPopup = document.querySelector(".popup__close-gelery"); 
@@ -24,7 +25,7 @@ function closePopup(popup) {
 };
 
 popupEditButton.addEventListener("click", function () {
-  openPopup(popup);
+  openPopup(profilePopup);
   fillUserInfo(); 
 });
 
@@ -35,12 +36,12 @@ addCardButon.addEventListener("click", function () {
 });
 
 
-function imagePrewiew(name, link) {
+function openImagePopup(name, link) {
   openPopup(popupOpenImage);
-  
-  popupImg.src = link; 
-  popupImg.alt = name; 
-  popupGeleryText.textContent = name; 
+
+  popupImg.src = link;
+  popupImg.alt = name;
+  popupGeleryText.textContent = name;
 }
 
 
@@ -51,11 +52,11 @@ popupOpenImage.addEventListener('click', (event) => {
   }
 });
 
-popup.addEventListener('click', (event) => {
-  if(event.target == popup){
-    closePopup(popup);
+profilePopup.addEventListener("click", (event) => {
+  if (event.target == profilePopup) {
+    closePopup(profilePopup);
   }
-})
+});
 
 popupAddNewCard.addEventListener('click', (event) => {
   if (event.target == popupAddNewCard) {
@@ -64,26 +65,36 @@ popupAddNewCard.addEventListener('click', (event) => {
 })
 
 
+function hendleClosePopup () {
+const closeButtons = document.querySelectorAll(".popup__close-btn");
+closeButtons.forEach((button) => {
+  // находим 1 раз ближайший к крестику попап
+  const popup = button.closest(".popup");
+  // устанавливаем обработчик закрытия на крестик
+  button.addEventListener("click", () => closePopup(popup));
+});
+}
 
-closeButtonGeleryPopup.addEventListener("click", function (params) {
-  closePopup(popupOpenImage);
-});
-closeButtonGenerateCardPopup.addEventListener("click", function () {
-  closePopup(popupAddNewCard);
-});
-closeButtonEditProfilePopup.addEventListener("click", function () {
-  closePopup(popup);
-});
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 export {
-  popup,
+  hendleClosePopup,
+  profilePopup,
   openPopup,
   closePopup,
-  imagePrewiew,
+  openImagePopup,
   popupAddNewCard,
   popupOpenImage,
 };
