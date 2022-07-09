@@ -73,6 +73,7 @@ function handleAddCard(evt) {
   closePopup(evt.target.closest(".popup_opened"));
   console.log(submitButton);
   submitButton.classList.add("popup__btn_disabled");
+  submitButton.setAttribute("disabled", true);
   evt.target.reset();
   
 
