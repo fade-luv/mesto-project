@@ -1,40 +1,19 @@
+import { renderCards } from "./card.js";
 
-import { renderCards} from "./card.js";
+
+
 function getUserInfo(params) {
   return fetch("https://nomoreparties.co/v1/plus-cohort-12/users/me ", {
     headers: {
       authorization: "cfcc3259-64f6-4e2d-ac0b-4516db4724d3",
     },
   })
-    .then((res) =>  res.json())
+    .then((res) => res.json())
     .then((result) => {
       document.querySelector(".profile__title").textContent = result.name;
       document.querySelector(".profile__subtitle").textContent = result.about;
     });
 }
-
-
-
-const getUserInfo1 = async () => {
-  let userPromise = await fetch("https://nomoreparties.co/v1/plus-cohort-12/users/me ",
-    {
-      headers: {
-        authorization: "cfcc3259-64f6-4e2d-ac0b-4516db4724d3",
-      },
-    }
-  );
-  let userData = await userPromise.json()
-  return userData;
-}
-
-const getActivity = async () => {
-  let jsonData = await getUserInfo1();
-  console.log(jsonData);
-};
-
-getActivity();
-
-
 
 async function getCards(params) {
   let response = await fetch(
@@ -58,12 +37,13 @@ const updateUser = (name, about) => {
     body: JSON.stringify({
       name: name,
       about: about,
+   
     }),
   });
 };
 
 const loadNewCard = (name, link) => {
-  fetch("https://nomoreparties.co/v1/plus-cohort-12/cards", {
+  return fetch("https://nomoreparties.co/v1/plus-cohort-12/cards", {
     headers: {
       authorization: "cfcc3259-64f6-4e2d-ac0b-4516db4724d3",
       "Content-Type": "application/json",
