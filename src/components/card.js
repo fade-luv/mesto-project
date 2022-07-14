@@ -3,6 +3,8 @@ import {
   loadNewCard,
   getCards,
   deleteCardFromServer,
+  addLikeToCard,
+  deleteLikefromCard,
 } from "./api.js";
 const newCardName = document.querySelector(".popup_new-card .popup__place");
 const newCardSubName = document.querySelector(".popup_new-card .popup__link");
@@ -10,9 +12,28 @@ const cardContainer = document.querySelector(".elements");
 const cardTemplate = document.querySelector(".element-template").content; // Достаём информацию из Template
 
 
-function likeCard(evt) {
-  evt.target.classList.toggle("element__like-button_active");
+const likeCard = (likeButton, cardID, likes) => {
+  console.log(likeButton);
+  likeButton.classList.add("element__like-button_active");
+  addLikeToCard(cardID, likes);
+};
+
+const dislikeCard = (likeButton, cardID, likes) => {
+  likeButton.classList.remove("element__like-button_active");
+  console.log(likes);
+  deleteLikefromCard(cardID, likes);
+};
+
+
+const checkLike = (card, cardID, likes) => (evt) => {
+  const likeButton = card.querySelector(".element__like-button");
+  if (likeButton.classList.contains("element__like-button_active")) {
+    dislikeCard(likeButton, cardID, likes);
+  } else {
+    likeCard(likeButton, cardID, likes);
+  }
 }
+
 
 const deleteCard = (card) => (evt) => {
   evt.target.closest(".element").remove();
@@ -21,16 +42,20 @@ const deleteCard = (card) => (evt) => {
 
 
 
-function createCard(name, link, likes, owner, cardID, element) {
+function createCard(name, link, likes, owner, cardID) {
+  
   const MyID = "21d278660190bbbb6648dbe8";
   const ownerID = owner;
   const cardClone = cardTemplate.querySelector(".element").cloneNode(true);
   const cardImage = cardClone.querySelector(".element__image");
+  const cardLikes = cardClone.querySelector(".element__likes")
   cardImage.src = link;
   cardImage.alt = name;
   cardClone.querySelector(".element__name").textContent = name;
-  cardClone.querySelector(".element__likes").textContent = likes.length;
-  cardClone.querySelector(".element__like-button").addEventListener("click", likeCard);
+  cardLikes.textContent = likes.length;
+  cardClone
+    .querySelector(".element__like-button")
+    .addEventListener("click", checkLike(cardClone, cardID, cardLikes));
   if (MyID === ownerID) {
     cardClone
       .querySelector(".element__delete-button")
@@ -40,9 +65,6 @@ function createCard(name, link, likes, owner, cardID, element) {
       .querySelector(".element__delete-button")
       .classList.add("element__delete-button_hide");
   }
-  cardClone
-    .querySelector(".element__delete-button")
-    .addEventListener("click", deleteCard(cardID));
   cardImage.addEventListener("click", () =>
     openImagePopup(cardImage.alt, cardImage.src)
   );
@@ -51,7 +73,7 @@ function createCard(name, link, likes, owner, cardID, element) {
 
 function renderCards(massive) {
   massive.forEach((element) => {
-    cardContainer.append(createCard(element.name, element.link, element.likes, element.owner._id, element._id, element));
+    cardContainer.append(createCard(element.name, element.link, element.likes, element.owner._id, element._id));
   });
 }
 
@@ -72,9 +94,6 @@ const handleAddCard = async (evt) => {
   submitButton.setAttribute("disabled", true);
   evt.target.reset();
 };
-
-
-
 
 
 
