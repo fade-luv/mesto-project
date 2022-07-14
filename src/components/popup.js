@@ -38,7 +38,6 @@ addCardButon.addEventListener("click", function () {
 
 function openImagePopup(name, link) {
   openPopup(popupOpenImage);
-
   popupImg.src = link;
   popupImg.alt = name;
   popupGeleryText.textContent = name;
