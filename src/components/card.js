@@ -43,12 +43,14 @@ const deleteCard = (card) => (evt) => {
 
 
 function createCard(name, link, likes, owner, cardID) {
+ 
   
   const MyID = "21d278660190bbbb6648dbe8";
   const ownerID = owner;
   const cardClone = cardTemplate.querySelector(".element").cloneNode(true);
   const cardImage = cardClone.querySelector(".element__image");
   const cardLikes = cardClone.querySelector(".element__likes")
+  const likeButton = cardClone.querySelector(".element__like-button");
   cardImage.src = link;
   cardImage.alt = name;
   cardClone.querySelector(".element__name").textContent = name;
@@ -65,6 +67,11 @@ function createCard(name, link, likes, owner, cardID) {
       .querySelector(".element__delete-button")
       .classList.add("element__delete-button_hide");
   }
+
+   if (likes.find((item) => item._id === "21d278660190bbbb6648dbe8")) {
+    likeButton.classList.add("element__like-button_active");
+   }
+   
   cardImage.addEventListener("click", () =>
     openImagePopup(cardImage.alt, cardImage.src)
   );

@@ -40,4 +40,5 @@
 @import url(../blocks/popup/__btn/_disabled/popup__btn_disabled.css);
 @import url(../blocks/element/__likes/element__likes.css);
 @import url(../blocks/element/__delete-button/_hide/element__delete-button_hide.css);
+@import url(../blocks/profile/__edit-avatar/profile__edit-avatar.css);
 
