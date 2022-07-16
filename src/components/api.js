@@ -24,8 +24,9 @@ function getCards(params) {
   return fetch(configApi.baseUrl + "/cards", {
     headers: configApi.headers,
   })
-    .then(checkResponse)
-    .then((res) => renderCards(res));
+    .then (checkResponse)
+    .catch((error) => alert(error.message));
+    
 }
 const updateUser = (name, about) => {
   return fetch(configApi.baseUrl + "/users/me", {
@@ -36,7 +37,8 @@ const updateUser = (name, about) => {
       about: about,
     }),
   })
-  .then(checkResponse);
+  .then(checkResponse)
+  .catch(error => alert(error.message));
 };
 
 const loadNewCard = (name, link) => {
@@ -47,14 +49,18 @@ const loadNewCard = (name, link) => {
       name: name,
       link: link,
     }),
-  }).then(checkResponse)
+  })
+    .then(checkResponse)
+    .catch((error) => alert(error.message));
 };
 
 const deleteCardFromServer = (cardID) => {
   return fetch(`${configApi.baseUrl}/cards/${cardID}`, {
     headers: configApi.headers,
     method: "DELETE",
-  }).then(checkResponse)
+  })
+    .then(checkResponse)
+    .catch((error) => alert(error.message));
 };
 
 const addLikeToCard = (cardID, cardLikes) => {
@@ -63,6 +69,7 @@ const addLikeToCard = (cardID, cardLikes) => {
     method: "PUT",
   })
     .then(checkResponse)
+    .catch((error) => alert(error.message));
    
     
 };
@@ -74,7 +81,7 @@ const loadNewAvatar = (link) => {
     body: JSON.stringify({
       avatar: link,
     }),
-  }).then(checkResponse);
+  }).then(checkResponse).catch(error => alert(error.message));
 };
 
 const deleteLikefromCard = (cardID) => {
@@ -83,6 +90,7 @@ const deleteLikefromCard = (cardID) => {
     method: "DELETE",
   })
     .then(checkResponse)
+    .catch((error) => alert(error.message));
    
 };
 

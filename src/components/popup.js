@@ -10,6 +10,7 @@ const popupGeleryText = document.querySelector(".popupGelery__text");
 const popupEditAvatarButton = document.querySelector(".profile__edit-avatar");
 const popupEditAvatar = document.querySelector(".popup_new-avatar");
 const newAvatarButton = document.querySelector(".button__new-avatar");
+const changeAvatarForm = document.querySelector(".form__new-avatar");
 const popupInputLinkAvatar = document.querySelector(
   ".popup__input-link-avatar"
 );
@@ -18,26 +19,31 @@ const profileAvatar = document.querySelector(".profile__avatar");
 const renderLoading = (isLoading, button1) => {
   if (isLoading) {
     button1.textContent = "Сохранение...";
-    console.log(button1);
   } else {
     button1.textContent = "Сохранить";
-    console.log(button1);
   }
 };
 
 function loadNewAvatarLocal() {
   renderLoading(true, newAvatarButton);
-  profileAvatar.src = popupInputLinkAvatar.value;
-  loadNewAvatar(popupInputLinkAvatar.value);
-  setTimeout(() => {
-    renderLoading(false, newAvatarButton);
-  }, 500);
-  setTimeout(() => {
-    closePopup(popupEditAvatar);
-  }, 500);
+  loadNewAvatar(popupInputLinkAvatar.value)
+    .then(function (response) {
+      if (response) {
+        profileAvatar.src = popupInputLinkAvatar.value;
+        closePopup(popupEditAvatar);
+        return response;
+      }
+    })
+    .catch((error) => alert(error.message))
+    .finally(() =>
+      setTimeout(() => {
+        renderLoading(false, newAvatarButton);
+      }, 500)
+    );
 }
 
-newAvatarButton.addEventListener("click", loadNewAvatarLocal);
+
+changeAvatarForm.addEventListener("submit", loadNewAvatarLocal);
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -71,6 +77,12 @@ function openImagePopup(name, link) {
 popupOpenImage.addEventListener("click", (event) => {
   if (event.target == popupOpenImage) {
     closePopup(popupOpenImage);
+  }
+});
+
+popupEditAvatar.addEventListener("click", (event) => {
+  if (event.target == popupEditAvatar) {
+    closePopup(popupEditAvatar);
   }
 });
 

@@ -1,3 +1,4 @@
+import { userId } from "./script.js";
 import { openImagePopup, closePopup, renderLoading } from "./popup.js";
 import {
   loadNewCard,
@@ -5,44 +6,62 @@ import {
   deleteCardFromServer,
   addLikeToCard,
   deleteLikefromCard,
+  getUserInfo,
 } from "./api.js";
 const newCardName = document.querySelector(".popup_new-card .popup__place");
 const newCardSubName = document.querySelector(".popup_new-card .popup__link");
 const cardContainer = document.querySelector(".elements");
 const cardTemplate = document.querySelector(".element-template").content; // Достаём информацию из Template
+const submitButton = document.querySelector(".popup__btn-new-card");
+
+
+
+Promise.all([getUserInfo(), getCards()])
+  .then(([userData, cards]) => {
+    document.querySelector(".profile__title").textContent = userData.name;
+    document.querySelector(".profile__subtitle").textContent = userData.about;
+    document.querySelector(".profile__avatar").src = userData.avatar;
+    userId = userData._id;
+    renderCards(cards);
+  })
+  .catch((error) => alert(error.message));
 
 const likeCard = (likeButton, cardID, likes) => {
-  likeButton.classList.add("element__like-button_active");
   addLikeToCard(cardID)
-  .then((res) => {
+    .then((res) => {
       likes.textContent = res.likes.length;
-    });
+      likeButton.classList.add("element__like-button_active");
+    })
+    .catch((error) => alert(error.message));
 };
 
 const dislikeCard = (likeButton, cardID, likes) => {
-  likeButton.classList.remove("element__like-button_active");
   deleteLikefromCard(cardID, likes)
-   .then((res) => {
+    .then((res) => {
       likes.textContent = res.likes.length;
-    });
+      likeButton.classList.remove("element__like-button_active");
+    })
+    .catch((error) => alert(error.message));
 };
 
 const checkLike = (card, cardID, likes) => (evt) => {
   const likeButton = card.querySelector(".element__like-button");
   if (likeButton.classList.contains("element__like-button_active")) {
-    dislikeCard(likeButton, cardID, likes);
+    dislikeCard(likeButton, cardID, likes).catch((error) =>
+      alert(error.message)
+    );
   } else {
-    likeCard(likeButton, cardID, likes);
+    likeCard(likeButton, cardID, likes).catch((error) => alert(error.message));
   }
 };
 
 const deleteCard = (card) => (evt) => {
-  evt.target.closest(".element").remove();
-  deleteCardFromServer(card);
+  deleteCardFromServer(card)
+    .then((res) => evt.target.closest(".element").remove())
+    .catch((error) => alert(error.message));
 };
 
 function createCard(name, link, likes, owner, cardID) {
-  const MyID = "21d278660190bbbb6648dbe8";
   const ownerID = owner;
   const cardClone = cardTemplate.querySelector(".element").cloneNode(true);
   const cardImage = cardClone.querySelector(".element__image");
@@ -55,7 +74,7 @@ function createCard(name, link, likes, owner, cardID) {
   cardClone
     .querySelector(".element__like-button")
     .addEventListener("click", checkLike(cardClone, cardID, cardLikes));
-  if (MyID === ownerID) {
+  if (userId === ownerID) {
     cardClone
       .querySelector(".element__delete-button")
       .addEventListener("click", deleteCard(cardID));
@@ -89,41 +108,35 @@ function renderCards(massive) {
   });
 }
 
-function handleAddCard(evt)  {
-  
-  
-  const submitButton = document.querySelector(".popup__btn-new-card");
+function handleAddCard(evt) {
   renderLoading(true, submitButton);
   evt.preventDefault();
   const placeName = newCardName.value;
   const placeLink = newCardSubName.value;
   loadNewCard(placeName, placeLink)
-  .then ((res) => {
+    .then(function (response) {
       cardContainer.prepend(
         createCard(
           placeName,
           placeLink,
-          res.likes,
-          res.owner._id,
-          res._id
+          response.likes,
+          response.owner._id,
+          response._id
         )
       );
-  }
-    
-  )
-  
-
-  submitButton.classList.add("popup__btn_disabled");
-  submitButton.setAttribute("disabled", true);
-  setTimeout(() => {
-    renderLoading(false, submitButton);
-  }, 500);
-  setTimeout(() => {
-    closePopup(evt.target.closest(".popup_opened"));
-  }, 500);
-  evt.target.reset();
-};
-
-getCards();
+      return response;
+    })
+    .then(function (response) {
+      if (response) {
+        setTimeout(() => {
+          closePopup(evt.target.closest(".popup_opened"));
+        }, 200);
+        return response;
+      }
+    })
+    .finally(function (response) {
+      renderLoading(false, submitButton);
+    });
+}
 
 export { renderCards, likeCard, deleteCard, createCard, handleAddCard };

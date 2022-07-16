@@ -15,14 +15,10 @@ const popupInputSubname = document.querySelector(".popup__subname");
 const editProfileformElement = document.querySelector(".popup form"); //получаем форму редактирования профиля
 const formElementNew = document.querySelector(".popup_new-card form");
 const profileEditButton = document.querySelector(".popup__btn-edit-profile");
+let userId;
 
 
-getUserInfo()
-.then((result) => {
-      document.querySelector(".profile__title").textContent = result.name;
-      document.querySelector(".profile__subtitle").textContent = result.about;
-      document.querySelector(".profile__avatar").src = result.avatar;
-    });
+
 
 
 
@@ -44,14 +40,18 @@ function handleProfileFormSubmit(evt) {
   const subNameValue = popupInputSubname.value;
   profileName.textContent = nameValue;
   profileJobName.textContent = subNameValue;
-  updateUser(profileName.textContent, profileJobName.textContent);
-  setTimeout(() => {
-    renderLoading(false, profileEditButton);
-  }, 500);
-  setTimeout(() => {
-    closePopup(profilePopup);
-  }, 500);
+  updateUser(profileName.textContent, profileJobName.textContent)
+  .then(function (response) {
+    if (response) {
+      closePopup(profilePopup);
+    }
+  })
+  .catch((error) => alert(error.message))
+  .finally( 
+      renderLoading(false, profileEditButton)
+  )
 }
+
 
 function handleEscape(evt) {
   if (evt.key === "Escape") {
@@ -66,4 +66,4 @@ formElementNew.addEventListener("submit", handleAddCard);
 editProfileformElement.addEventListener("submit", handleProfileFormSubmit);
 
 
-export { handleEscape, fillUserInfo, handleAddCard, disableButton };
+export { handleEscape, fillUserInfo, handleAddCard, disableButton, userId };
