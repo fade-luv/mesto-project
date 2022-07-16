@@ -18,11 +18,6 @@ function checkResponse(res) {
 function getUserInfo() {
   return fetch(configApi.baseUrl + "/users/me", { headers: configApi.headers })
     .then(checkResponse)
-    .then((result) => {
-      document.querySelector(".profile__title").textContent = result.name;
-      document.querySelector(".profile__subtitle").textContent = result.about;
-      document.querySelector(".profile__avatar").src = result.avatar;
-    });
 }
 
 function getCards(params) {
@@ -68,9 +63,7 @@ const addLikeToCard = (cardID, cardLikes) => {
     method: "PUT",
   })
     .then(checkResponse)
-    .then((res) => {
-      cardLikes.textContent = res.likes.length;
-    })
+   
     
 };
 
@@ -84,15 +77,13 @@ const loadNewAvatar = (link) => {
   }).then(checkResponse);
 };
 
-const deleteLikefromCard = (cardID, cardLikes) => {
+const deleteLikefromCard = (cardID) => {
   return fetch(`${configApi.baseUrl}/cards/likes/${cardID}`, {
     headers: configApi.headers,
     method: "DELETE",
   })
     .then(checkResponse)
-    .then((res) => {
-      cardLikes.textContent = res.likes.length;
-    });
+   
 };
 
 export {

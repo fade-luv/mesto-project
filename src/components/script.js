@@ -16,6 +16,17 @@ const editProfileformElement = document.querySelector(".popup form"); //полу
 const formElementNew = document.querySelector(".popup_new-card form");
 const profileEditButton = document.querySelector(".popup__btn-edit-profile");
 
+
+getUserInfo()
+.then((result) => {
+      document.querySelector(".profile__title").textContent = result.name;
+      document.querySelector(".profile__subtitle").textContent = result.about;
+      document.querySelector(".profile__avatar").src = result.avatar;
+    });
+
+
+
+
 function disableButton(button) {
   button.setAttribute("disabled", true);
   button.classList.add(".popup__btn_disabled");
@@ -54,5 +65,5 @@ hendleClosePopup();
 formElementNew.addEventListener("submit", handleAddCard);
 editProfileformElement.addEventListener("submit", handleProfileFormSubmit);
 
-getUserInfo();
+
 export { handleEscape, fillUserInfo, handleAddCard, disableButton };

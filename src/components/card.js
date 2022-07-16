@@ -5,7 +5,6 @@ import {
   deleteCardFromServer,
   addLikeToCard,
   deleteLikefromCard,
-  checkResponse,
 } from "./api.js";
 const newCardName = document.querySelector(".popup_new-card .popup__place");
 const newCardSubName = document.querySelector(".popup_new-card .popup__link");
@@ -13,15 +12,19 @@ const cardContainer = document.querySelector(".elements");
 const cardTemplate = document.querySelector(".element-template").content; // Достаём информацию из Template
 
 const likeCard = (likeButton, cardID, likes) => {
-  console.log(likeButton);
   likeButton.classList.add("element__like-button_active");
-  addLikeToCard(cardID, likes);
+  addLikeToCard(cardID)
+  .then((res) => {
+      likes.textContent = res.likes.length;
+    });
 };
 
 const dislikeCard = (likeButton, cardID, likes) => {
   likeButton.classList.remove("element__like-button_active");
-  console.log(likes);
-  deleteLikefromCard(cardID, likes);
+  deleteLikefromCard(cardID, likes)
+   .then((res) => {
+      likes.textContent = res.likes.length;
+    });
 };
 
 const checkLike = (card, cardID, likes) => (evt) => {
