@@ -35,8 +35,6 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   }
 };
 
-
-
 const setEventListeners = (popupForm, config) => {
   const inputList = Array.from(
     popupForm.querySelectorAll(config.inputSelector)
@@ -70,9 +68,7 @@ const validationConfig = {
   errorMessage: "popup__input_error_active",
   submitButtonSelector: ".popup__btn",
   inactiveButtonClass: "popup__btn_disabled",
-  inputErrorMessage: "popup__text_invalid"
+  inputErrorMessage: "popup__text_invalid",
 };
-
-
 
 export { enableValidation, validationConfig, toggleButtonState };

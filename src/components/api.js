@@ -10,6 +10,7 @@ function getUserInfo(params) {
     .then((result) => {
       document.querySelector(".profile__title").textContent = result.name;
       document.querySelector(".profile__subtitle").textContent = result.about;
+      document.querySelector(".profile__avatar").src = result.avatar;
     });
 }
 
@@ -80,7 +81,18 @@ const addLikeToCard = (cardID, cardLikes) => {
     });
 };
 
-
+const loadNewAvatar = (link) => {
+  return fetch(`https://nomoreparties.co/v1/plus-cohort-12/users/me/avatar`, {
+    headers: {
+      authorization: "cfcc3259-64f6-4e2d-ac0b-4516db4724d3",
+      "Content-Type": "application/json",
+    },
+    method: "PATCH",
+    body: JSON.stringify({
+      avatar: link,
+    }),
+  });
+};
 
 const deleteLikefromCard = (cardID, cardLikes) => {
   return fetch(
@@ -107,4 +119,5 @@ export {
   deleteCardFromServer,
   addLikeToCard,
   deleteLikefromCard,
+  loadNewAvatar,
 };
