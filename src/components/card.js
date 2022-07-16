@@ -5,6 +5,7 @@ import {
   deleteCardFromServer,
   addLikeToCard,
   deleteLikefromCard,
+  checkResponse,
 } from "./api.js";
 const newCardName = document.querySelector(".popup_new-card .popup__place");
 const newCardSubName = document.querySelector(".popup_new-card .popup__link");
@@ -85,23 +86,29 @@ function renderCards(massive) {
   });
 }
 
-const handleAddCard = async (evt) => {
+function handleAddCard(evt)  {
+  
+  
   const submitButton = document.querySelector(".popup__btn-new-card");
   renderLoading(true, submitButton);
   evt.preventDefault();
   const placeName = newCardName.value;
   const placeLink = newCardSubName.value;
-  const card = await loadNewCard(placeName, placeLink);
-  const response = await card.json();
-  cardContainer.prepend(
-    createCard(
-      placeName,
-      placeLink,
-      response.likes,
-      response.owner._id,
-      response._id
-    )
-  );
+  loadNewCard(placeName, placeLink)
+  .then ((res) => {
+      cardContainer.prepend(
+        createCard(
+          placeName,
+          placeLink,
+          res.likes,
+          res.owner._id,
+          res._id
+        )
+      );
+  }
+    
+  )
+  
 
   submitButton.classList.add("popup__btn_disabled");
   submitButton.setAttribute("disabled", true);

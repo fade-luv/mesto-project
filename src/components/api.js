@@ -8,9 +8,16 @@ const configApi = {
   },
 };
 
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка ${res.status}`);
+}
+
 function getUserInfo() {
   return fetch(configApi.baseUrl + "/users/me", { headers: configApi.headers })
-    .then((res) => res.json())
+    .then(checkResponse)
     .then((result) => {
       document.querySelector(".profile__title").textContent = result.name;
       document.querySelector(".profile__subtitle").textContent = result.about;
@@ -18,22 +25,23 @@ function getUserInfo() {
     });
 }
 
-async function getCards(params) {
-  let response = await fetch(configApi.baseUrl + "/cards", {
+function getCards(params) {
+  return fetch(configApi.baseUrl + "/cards", {
     headers: configApi.headers,
-  });
-  const result = await response.json();
-  renderCards(result);
+  })
+    .then(checkResponse)
+    .then((res) => renderCards(res));
 }
 const updateUser = (name, about) => {
-  fetch(configApi.baseUrl + "/users/me", {
+  return fetch(configApi.baseUrl + "/users/me", {
     headers: configApi.headers,
     method: "PATCH",
     body: JSON.stringify({
       name: name,
       about: about,
     }),
-  });
+  })
+  .then(checkResponse);
 };
 
 const loadNewCard = (name, link) => {
@@ -44,14 +52,14 @@ const loadNewCard = (name, link) => {
       name: name,
       link: link,
     }),
-  });
+  }).then(checkResponse)
 };
 
 const deleteCardFromServer = (cardID) => {
-  fetch(`${configApi.baseUrl}/cards/${cardID}`, {
+  return fetch(`${configApi.baseUrl}/cards/${cardID}`, {
     headers: configApi.headers,
     method: "DELETE",
-  });
+  }).then(checkResponse)
 };
 
 const addLikeToCard = (cardID, cardLikes) => {
@@ -59,10 +67,11 @@ const addLikeToCard = (cardID, cardLikes) => {
     headers: configApi.headers,
     method: "PUT",
   })
-    .then((res) => res.json())
+    .then(checkResponse)
     .then((res) => {
       cardLikes.textContent = res.likes.length;
-    });
+    })
+    
 };
 
 const loadNewAvatar = (link) => {
@@ -72,7 +81,7 @@ const loadNewAvatar = (link) => {
     body: JSON.stringify({
       avatar: link,
     }),
-  });
+  }).then(checkResponse);
 };
 
 const deleteLikefromCard = (cardID, cardLikes) => {
@@ -80,7 +89,7 @@ const deleteLikefromCard = (cardID, cardLikes) => {
     headers: configApi.headers,
     method: "DELETE",
   })
-    .then((res) => res.json())
+    .then(checkResponse)
     .then((res) => {
       cardLikes.textContent = res.likes.length;
     });
@@ -95,4 +104,5 @@ export {
   addLikeToCard,
   deleteLikefromCard,
   loadNewAvatar,
+  checkResponse,
 };
