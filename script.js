@@ -21,17 +21,6 @@
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 
@@ -42,14 +31,6 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 // UNUSED EXPORTS: disableButton, handleAddCard
-
-// NAMESPACE OBJECT: ./src/components/script.js
-var script_namespaceObject = {};
-__webpack_require__.r(script_namespaceObject);
-__webpack_require__.d(script_namespaceObject, {
-  "sj": () => (fillUserInfo),
-  "rA": () => (handleEscape)
-});
 
 ;// CONCATENATED MODULE: ./src/components/api.js
 var configApi = {
@@ -255,13 +236,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var newCardName = document.querySelector(".popup_new-card .popup__place");
 var newCardSubName = document.querySelector(".popup_new-card .popup__link");
 var cardContainer = document.querySelector(".elements");
 var cardTemplate = document.querySelector(".element-template").content; // Достаём информацию из Template
 
 var submitButton = document.querySelector(".popup__btn-new-card");
+var userId;
 Promise.all([getUserInfo(), getCards()]).then(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       userData = _ref2[0],
@@ -270,7 +251,8 @@ Promise.all([getUserInfo(), getCards()]).then(function (_ref) {
   document.querySelector(".profile__title").textContent = userData.name;
   document.querySelector(".profile__subtitle").textContent = userData.about;
   document.querySelector(".profile__avatar").src = userData.avatar;
-  script_namespaceObject.userId = userData._id;
+  userId = userData._id;
+  console.log(userId);
   renderCards(cards);
 }).catch(function (error) {
   return alert(error.message);
@@ -328,7 +310,7 @@ function createCard(name, link, likes, owner, cardID) {
   cardLikes.textContent = likes.length;
   cardClone.querySelector(".element__like-button").addEventListener("click", checkLike(cardClone, cardID, cardLikes));
 
-  if (script_namespaceObject.userId === ownerID) {
+  if (userId === ownerID) {
     cardClone.querySelector(".element__delete-button").addEventListener("click", deleteCard(cardID));
   } else {
     cardClone.querySelector(".element__delete-button").classList.add("element__delete-button_hide");
@@ -475,7 +457,7 @@ function fillUserInfo(params) {
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   updateUser(profileName.textContent, profileJobName.textContent).then(function () {
-    renderLoading(false, profileEditButton);
+    renderLoading(true, profileEditButton);
     var nameValue = popupInputName.value;
     var subNameValue = popupInputSubname.value;
     profileName.textContent = nameValue;
@@ -484,7 +466,7 @@ function handleProfileFormSubmit(evt) {
     closePopup(profilePopup);
   }).catch(function (error) {
     return alert(error.message);
-  }).finally(renderLoading(true, profileEditButton));
+  }).finally(renderLoading(false, profileEditButton));
 }
 
 function handleEscape(evt) {
