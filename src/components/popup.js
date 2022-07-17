@@ -25,10 +25,10 @@ const renderLoading = (isLoading, button1) => {
 };
 
 function loadNewAvatarLocal() {
-  renderLoading(true, newAvatarButton);
   loadNewAvatar(popupInputLinkAvatar.value)
-    .then(function (response) {
+    .then(function (response) {  
       if (response) {
+        renderLoading(true, newAvatarButton);
         profileAvatar.src = popupInputLinkAvatar.value;
         closePopup(popupEditAvatar);
         return response;

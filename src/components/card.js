@@ -14,8 +14,6 @@ const cardContainer = document.querySelector(".elements");
 const cardTemplate = document.querySelector(".element-template").content; // Достаём информацию из Template
 const submitButton = document.querySelector(".popup__btn-new-card");
 
-
-
 Promise.all([getUserInfo(), getCards()])
   .then(([userData, cards]) => {
     document.querySelector(".profile__title").textContent = userData.name;
@@ -47,9 +45,9 @@ const dislikeCard = (likeButton, cardID, likes) => {
 const checkLike = (card, cardID, likes) => (evt) => {
   const likeButton = card.querySelector(".element__like-button");
   if (likeButton.classList.contains("element__like-button_active")) {
-    dislikeCard(likeButton, cardID, likes)
+    dislikeCard(likeButton, cardID, likes);
   } else {
-    likeCard(likeButton, cardID, likes)
+    likeCard(likeButton, cardID, likes);
   }
 };
 
@@ -107,12 +105,12 @@ function renderCards(massive) {
 }
 
 function handleAddCard(evt) {
-  renderLoading(true, submitButton);
   evt.preventDefault();
   const placeName = newCardName.value;
   const placeLink = newCardSubName.value;
   loadNewCard(placeName, placeLink)
     .then(function (response) {
+      renderLoading(true, submitButton);
       cardContainer.prepend(
         createCard(
           placeName,

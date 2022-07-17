@@ -28,17 +28,19 @@ function fillUserInfo(params) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true, profileEditButton);
-  const nameValue = popupInputName.value;
-  const subNameValue = popupInputSubname.value;
-  profileName.textContent = nameValue;
-  profileJobName.textContent = subNameValue;
   updateUser(profileName.textContent, profileJobName.textContent)
     .then(function () {
-        closePopup(profilePopup);
+      renderLoading(false, profileEditButton);
+      const nameValue = popupInputName.value;
+      const subNameValue = popupInputSubname.value;
+      profileName.textContent = nameValue;
+      profileJobName.textContent = subNameValue;
+    })
+    .then(function () {
+      closePopup(profilePopup);
     })
     .catch((error) => alert(error.message))
-    .finally(renderLoading(false, profileEditButton));
+    .finally(renderLoading(true, profileEditButton));
 }
 
 function handleEscape(evt) {
