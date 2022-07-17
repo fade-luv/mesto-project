@@ -160,9 +160,9 @@ var renderLoading = function renderLoading(isLoading, button1) {
 };
 
 function loadNewAvatarLocal() {
-  renderLoading(true, newAvatarButton);
   loadNewAvatar(popupInputLinkAvatar.value).then(function (response) {
     if (response) {
+      renderLoading(true, newAvatarButton);
       profileAvatar.src = popupInputLinkAvatar.value;
       closePopup(popupEditAvatar);
       return response;
@@ -353,11 +353,11 @@ function renderCards(massive) {
 }
 
 function handleAddCard(evt) {
-  renderLoading(true, submitButton);
   evt.preventDefault();
   var placeName = newCardName.value;
   var placeLink = newCardSubName.value;
   loadNewCard(placeName, placeLink).then(function (response) {
+    renderLoading(true, submitButton);
     cardContainer.prepend(createCard(placeName, placeLink, response.likes, response.owner._id, response._id));
     return response;
   }).then(function (response) {
@@ -474,16 +474,17 @@ function fillUserInfo(params) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true, profileEditButton);
-  var nameValue = popupInputName.value;
-  var subNameValue = popupInputSubname.value;
-  profileName.textContent = nameValue;
-  profileJobName.textContent = subNameValue;
   updateUser(profileName.textContent, profileJobName.textContent).then(function () {
+    renderLoading(false, profileEditButton);
+    var nameValue = popupInputName.value;
+    var subNameValue = popupInputSubname.value;
+    profileName.textContent = nameValue;
+    profileJobName.textContent = subNameValue;
+  }).then(function () {
     closePopup(profilePopup);
   }).catch(function (error) {
     return alert(error.message);
-  }).finally(renderLoading(false, profileEditButton));
+  }).finally(renderLoading(true, profileEditButton));
 }
 
 function handleEscape(evt) {
