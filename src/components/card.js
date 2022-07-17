@@ -12,6 +12,7 @@ const newCardSubName = document.querySelector(".popup_new-card .popup__link");
 const cardContainer = document.querySelector(".elements");
 const cardTemplate = document.querySelector(".element-template").content; // Достаём информацию из Template
 const submitButton = document.querySelector(".popup__btn-new-card");
+
 let userId;
 
 
@@ -124,17 +125,17 @@ function handleAddCard(evt) {
       );
       return response;
     })
-    .then(function (response) {
-      if (response) {
-        setTimeout(() => {
-          closePopup(evt.target.closest(".popup_opened"));
-        }, 200);
-        return response;
-      }
-    })
     .catch((error) => alert(error.message))
+    .then(function () {
+      setTimeout(() => {
+        renderLoading(false, submitButton);
+      }, 200);
+    })
     .finally(function () {
-      renderLoading(false, submitButton);
+      setTimeout(() => {
+        evt.target.reset();
+        closePopup(evt.target.closest(".popup_opened"));
+      }, 600);
     });
 }
 

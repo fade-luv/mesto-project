@@ -17,6 +17,8 @@ const popupInputLinkAvatar = document.querySelector(
 const profileAvatar = document.querySelector(".profile__avatar");
 
 const renderLoading = (isLoading, button1) => {
+  console.log(isLoading);
+  console.log(button1);
   if (isLoading) {
     button1.textContent = "Сохранение...";
   } else {
@@ -24,21 +26,26 @@ const renderLoading = (isLoading, button1) => {
   }
 };
 
-function loadNewAvatarLocal() {
+function loadNewAvatarLocal(evt) {
   loadNewAvatar(popupInputLinkAvatar.value)
-    .then(function (response) {  
+    .then(function (response) {
       if (response) {
         renderLoading(true, newAvatarButton);
         profileAvatar.src = popupInputLinkAvatar.value;
-        closePopup(popupEditAvatar);
         return response;
       }
     })
     .catch((error) => alert(error.message))
-    .finally(() =>
+    .then(function () {
       setTimeout(() => {
         renderLoading(false, newAvatarButton);
-      }, 500)
+      }, 200);
+    })
+    .finally(() =>
+      setTimeout(() => {
+        evt.target.reset();
+        closePopup(popupEditAvatar);
+      }, 600)
     );
 }
 

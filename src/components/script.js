@@ -37,10 +37,16 @@ function handleProfileFormSubmit(evt) {
       profileJobName.textContent = subNameValue;
     })
     .then(function () {
-      closePopup(profilePopup);
+      setTimeout(() => {
+        renderLoading(false, profileEditButton);
+      }, 200);
     })
     .catch((error) => alert(error.message))
-    .finally(renderLoading(false, profileEditButton));
+    .finally(
+      setTimeout(() => {
+        closePopup(profilePopup);
+      }, 600)
+    );
 }
 
 function handleEscape(evt) {
