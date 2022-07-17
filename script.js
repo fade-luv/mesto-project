@@ -21,20 +21,37 @@
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "sj": () => (/* binding */ fillUserInfo),
-  "rA": () => (/* binding */ handleEscape),
-  "xS": () => (/* binding */ userId)
+  "rA": () => (/* binding */ handleEscape)
 });
 
 // UNUSED EXPORTS: disableButton, handleAddCard
 
-;// CONCATENATED MODULE: ./src/components/api.js
+// NAMESPACE OBJECT: ./src/components/script.js
+var script_namespaceObject = {};
+__webpack_require__.r(script_namespaceObject);
+__webpack_require__.d(script_namespaceObject, {
+  "sj": () => (fillUserInfo),
+  "rA": () => (handleEscape)
+});
 
+;// CONCATENATED MODULE: ./src/components/api.js
 var configApi = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-12",
   headers: {
@@ -60,9 +77,7 @@ function getUserInfo() {
 function getCards(params) {
   return fetch(configApi.baseUrl + "/cards", {
     headers: configApi.headers
-  }).then(checkResponse).catch(function (error) {
-    return alert(error.message);
-  });
+  }).then(checkResponse);
 }
 
 var updateUser = function updateUser(name, about) {
@@ -73,9 +88,7 @@ var updateUser = function updateUser(name, about) {
       name: name,
       about: about
     })
-  }).then(checkResponse).catch(function (error) {
-    return alert(error.message);
-  });
+  }).then(checkResponse);
 };
 
 var loadNewCard = function loadNewCard(name, link) {
@@ -86,27 +99,21 @@ var loadNewCard = function loadNewCard(name, link) {
       name: name,
       link: link
     })
-  }).then(checkResponse).catch(function (error) {
-    return alert(error.message);
-  });
+  }).then(checkResponse);
 };
 
 var deleteCardFromServer = function deleteCardFromServer(cardID) {
   return fetch("".concat(configApi.baseUrl, "/cards/").concat(cardID), {
     headers: configApi.headers,
     method: "DELETE"
-  }).then(checkResponse).catch(function (error) {
-    return alert(error.message);
-  });
+  }).then(checkResponse);
 };
 
-var addLikeToCard = function addLikeToCard(cardID, cardLikes) {
+var addLikeToCard = function addLikeToCard(cardID) {
   return fetch("".concat(configApi.baseUrl, "/cards/likes/").concat(cardID), {
     headers: configApi.headers,
     method: "PUT"
-  }).then(checkResponse).catch(function (error) {
-    return alert(error.message);
-  });
+  }).then(checkResponse);
 };
 
 var loadNewAvatar = function loadNewAvatar(link) {
@@ -116,18 +123,14 @@ var loadNewAvatar = function loadNewAvatar(link) {
     body: JSON.stringify({
       avatar: link
     })
-  }).then(checkResponse).catch(function (error) {
-    return alert(error.message);
-  });
+  }).then(checkResponse);
 };
 
 var deleteLikefromCard = function deleteLikefromCard(cardID) {
   return fetch("".concat(configApi.baseUrl, "/cards/likes/").concat(cardID), {
     headers: configApi.headers,
     method: "DELETE"
-  }).then(checkResponse).catch(function (error) {
-    return alert(error.message);
-  });
+  }).then(checkResponse);
 };
 
 
@@ -267,7 +270,7 @@ Promise.all([getUserInfo(), getCards()]).then(function (_ref) {
   document.querySelector(".profile__title").textContent = userData.name;
   document.querySelector(".profile__subtitle").textContent = userData.about;
   document.querySelector(".profile__avatar").src = userData.avatar;
-  userId = userData._id;
+  script_namespaceObject.userId = userData._id;
   renderCards(cards);
 }).catch(function (error) {
   return alert(error.message);
@@ -296,13 +299,9 @@ var checkLike = function checkLike(card, cardID, likes) {
     var likeButton = card.querySelector(".element__like-button");
 
     if (likeButton.classList.contains("element__like-button_active")) {
-      dislikeCard(likeButton, cardID, likes).catch(function (error) {
-        return alert(error.message);
-      });
+      dislikeCard(likeButton, cardID, likes);
     } else {
-      likeCard(likeButton, cardID, likes).catch(function (error) {
-        return alert(error.message);
-      });
+      likeCard(likeButton, cardID, likes);
     }
   };
 };
@@ -329,7 +328,7 @@ function createCard(name, link, likes, owner, cardID) {
   cardLikes.textContent = likes.length;
   cardClone.querySelector(".element__like-button").addEventListener("click", checkLike(cardClone, cardID, cardLikes));
 
-  if (userId === ownerID) {
+  if (script_namespaceObject.userId === ownerID) {
     cardClone.querySelector(".element__delete-button").addEventListener("click", deleteCard(cardID));
   } else {
     cardClone.querySelector(".element__delete-button").classList.add("element__delete-button_hide");
@@ -368,7 +367,9 @@ function handleAddCard(evt) {
       }, 200);
       return response;
     }
-  }).finally(function (response) {
+  }).catch(function (error) {
+    return alert(error.message);
+  }).finally(function () {
     renderLoading(false, submitButton);
   });
 }
@@ -460,7 +461,6 @@ var editProfileformElement = document.querySelector(".popup form"); //получ
 
 var formElementNew = document.querySelector(".popup_new-card form");
 var profileEditButton = document.querySelector(".popup__btn-edit-profile");
-var userId;
 
 function disableButton(button) {
   button.setAttribute("disabled", true);
@@ -479,10 +479,8 @@ function handleProfileFormSubmit(evt) {
   var subNameValue = popupInputSubname.value;
   profileName.textContent = nameValue;
   profileJobName.textContent = subNameValue;
-  updateUser(profileName.textContent, profileJobName.textContent).then(function (response) {
-    if (response) {
-      closePopup(profilePopup);
-    }
+  updateUser(profileName.textContent, profileJobName.textContent).then(function () {
+    closePopup(profilePopup);
   }).catch(function (error) {
     return alert(error.message);
   }).finally(renderLoading(false, profileEditButton));
