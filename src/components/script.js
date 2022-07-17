@@ -30,7 +30,7 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   updateUser(profileName.textContent, profileJobName.textContent)
     .then(function () {
-      renderLoading(false, profileEditButton);
+      renderLoading(true, profileEditButton);
       const nameValue = popupInputName.value;
       const subNameValue = popupInputSubname.value;
       profileName.textContent = nameValue;
@@ -40,7 +40,7 @@ function handleProfileFormSubmit(evt) {
       closePopup(profilePopup);
     })
     .catch((error) => alert(error.message))
-    .finally(renderLoading(true, profileEditButton));
+    .finally(renderLoading(false, profileEditButton));
 }
 
 function handleEscape(evt) {

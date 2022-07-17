@@ -1,4 +1,3 @@
-import { userId } from "./script.js";
 import { openImagePopup, closePopup, renderLoading } from "./popup.js";
 import {
   loadNewCard,
@@ -13,6 +12,8 @@ const newCardSubName = document.querySelector(".popup_new-card .popup__link");
 const cardContainer = document.querySelector(".elements");
 const cardTemplate = document.querySelector(".element-template").content; // Достаём информацию из Template
 const submitButton = document.querySelector(".popup__btn-new-card");
+let userId;
+
 
 Promise.all([getUserInfo(), getCards()])
   .then(([userData, cards]) => {
@@ -20,6 +21,7 @@ Promise.all([getUserInfo(), getCards()])
     document.querySelector(".profile__subtitle").textContent = userData.about;
     document.querySelector(".profile__avatar").src = userData.avatar;
     userId = userData._id;
+    console.log(userId)
     renderCards(cards);
   })
   .catch((error) => alert(error.message));
