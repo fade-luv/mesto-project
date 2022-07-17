@@ -47,11 +47,9 @@ const dislikeCard = (likeButton, cardID, likes) => {
 const checkLike = (card, cardID, likes) => (evt) => {
   const likeButton = card.querySelector(".element__like-button");
   if (likeButton.classList.contains("element__like-button_active")) {
-    dislikeCard(likeButton, cardID, likes).catch((error) =>
-      alert(error.message)
-    );
+    dislikeCard(likeButton, cardID, likes)
   } else {
-    likeCard(likeButton, cardID, likes).catch((error) => alert(error.message));
+    likeCard(likeButton, cardID, likes)
   }
 };
 
@@ -134,7 +132,8 @@ function handleAddCard(evt) {
         return response;
       }
     })
-    .finally(function (response) {
+    .catch((error) => alert(error.message))
+    .finally(function () {
       renderLoading(false, submitButton);
     });
 }

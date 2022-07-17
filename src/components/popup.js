@@ -57,7 +57,8 @@ function closePopup(popup) {
 
 popupEditButton.addEventListener("click", function () {
   openPopup(profilePopup);
-  fillUserInfo();
+  fillUserInfo()
+  
 });
 
 addCardButon.addEventListener("click", function () {

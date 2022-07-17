@@ -1,5 +1,3 @@
-import { renderCards } from "./card.js";
-
 const configApi = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-12",
   headers: {
@@ -25,7 +23,6 @@ function getCards(params) {
     headers: configApi.headers,
   })
     .then (checkResponse)
-    .catch((error) => alert(error.message));
     
 }
 const updateUser = (name, about) => {
@@ -38,7 +35,7 @@ const updateUser = (name, about) => {
     }),
   })
   .then(checkResponse)
-  .catch(error => alert(error.message));
+
 };
 
 const loadNewCard = (name, link) => {
@@ -51,7 +48,6 @@ const loadNewCard = (name, link) => {
     }),
   })
     .then(checkResponse)
-    .catch((error) => alert(error.message));
 };
 
 const deleteCardFromServer = (cardID) => {
@@ -60,16 +56,16 @@ const deleteCardFromServer = (cardID) => {
     method: "DELETE",
   })
     .then(checkResponse)
-    .catch((error) => alert(error.message));
+    
 };
 
-const addLikeToCard = (cardID, cardLikes) => {
+const addLikeToCard = (cardID) => {
   return fetch(`${configApi.baseUrl}/cards/likes/${cardID}`, {
     headers: configApi.headers,
     method: "PUT",
   })
     .then(checkResponse)
-    .catch((error) => alert(error.message));
+
    
     
 };
@@ -81,7 +77,9 @@ const loadNewAvatar = (link) => {
     body: JSON.stringify({
       avatar: link,
     }),
-  }).then(checkResponse).catch(error => alert(error.message));
+  })
+  .then(checkResponse)
+  
 };
 
 const deleteLikefromCard = (cardID) => {
@@ -90,7 +88,7 @@ const deleteLikefromCard = (cardID) => {
     method: "DELETE",
   })
     .then(checkResponse)
-    .catch((error) => alert(error.message));
+    
    
 };
 

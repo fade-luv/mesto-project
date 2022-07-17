@@ -7,7 +7,7 @@ import {
   renderLoading,
 } from "./popup.js";
 import { enableValidation, validationConfig } from "./validate.js";
-import { getUserInfo, updateUser } from "./api.js";
+import { updateUser } from "./api.js";
 const profileName = document.querySelector(".profile__title"); // Получаем имя пользователя профиля
 const popupInputName = document.querySelector(".popup__name");
 const profileJobName = document.querySelector(".profile__subtitle"); // Получаем род деятельности пользователя
@@ -15,13 +15,6 @@ const popupInputSubname = document.querySelector(".popup__subname");
 const editProfileformElement = document.querySelector(".popup form"); //получаем форму редактирования профиля
 const formElementNew = document.querySelector(".popup_new-card form");
 const profileEditButton = document.querySelector(".popup__btn-edit-profile");
-let userId;
-
-
-
-
-
-
 
 function disableButton(button) {
   button.setAttribute("disabled", true);
@@ -41,17 +34,12 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameValue;
   profileJobName.textContent = subNameValue;
   updateUser(profileName.textContent, profileJobName.textContent)
-  .then(function (response) {
-    if (response) {
-      closePopup(profilePopup);
-    }
-  })
-  .catch((error) => alert(error.message))
-  .finally( 
-      renderLoading(false, profileEditButton)
-  )
+    .then(function () {
+        closePopup(profilePopup);
+    })
+    .catch((error) => alert(error.message))
+    .finally(renderLoading(false, profileEditButton));
 }
-
 
 function handleEscape(evt) {
   if (evt.key === "Escape") {
@@ -65,5 +53,4 @@ hendleClosePopup();
 formElementNew.addEventListener("submit", handleAddCard);
 editProfileformElement.addEventListener("submit", handleProfileFormSubmit);
 
-
-export { handleEscape, fillUserInfo, handleAddCard, disableButton, userId };
+export { handleEscape, fillUserInfo, handleAddCard, disableButton };
