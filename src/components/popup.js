@@ -38,11 +38,13 @@ function loadNewAvatarLocal(evt) {
       }
     })
     .catch((error) => alert(error.message))
-    .then(function () {
-      setTimeout(() => {
-        evt.target.reset();
-        closePopup(popupEditAvatar);
-      }, 600)
+    .then(function (result) {
+      if (result) {
+        setTimeout(() => {
+          evt.target.reset();
+          closePopup(popupEditAvatar);
+        }, 600);
+      }
     })
     .finally ( function () {
       setTimeout(() => {

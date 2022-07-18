@@ -26,6 +26,8 @@ function getCards(params) {
     
 }
 const updateUser = (name, about) => {
+  console.log(name);
+  console.log(about);
   return fetch(configApi.baseUrl + "/users/me", {
     headers: configApi.headers,
     method: "PATCH",

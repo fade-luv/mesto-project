@@ -28,26 +28,25 @@ function fillUserInfo(params) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+  const nameValue = popupInputName.value;
+  const subNameValue = popupInputSubname.value;
+  profileName.textContent = nameValue;
+  profileJobName.textContent = subNameValue;
   updateUser(profileName.textContent, profileJobName.textContent)
     .then(function () {
       renderLoading(true, profileEditButton);
-      const nameValue = popupInputName.value;
-      const subNameValue = popupInputSubname.value;
-      profileName.textContent = nameValue;
-      profileJobName.textContent = subNameValue;
     })
     .then(function () {
-      setTimeout(() => {
-        closePopup(profilePopup);
-      }, 600);
+        setTimeout(() => {
+          evt.target.reset();
+          closePopup(evt.target.closest(".popup_opened"));
+        }, 600);
     })
-    .catch((error) => alert(error.message))
-    .finally(function() {
+    .finally(function () {
       setTimeout(() => {
         renderLoading(false, profileEditButton);
       }, 200);
-    }
-    );
+    });
 }
 
 function handleEscape(evt) {

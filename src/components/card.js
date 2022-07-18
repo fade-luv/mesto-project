@@ -16,14 +16,13 @@ const submitButton = document.querySelector(".popup__btn-new-card");
 
 let userId;
 
-
 Promise.all([getUserInfo(), getCards()])
   .then(([userData, cards]) => {
     document.querySelector(".profile__title").textContent = userData.name;
     document.querySelector(".profile__subtitle").textContent = userData.about;
     document.querySelector(".profile__avatar").src = userData.avatar;
     userId = userData._id;
-    console.log(userId)
+    console.log(userId);
     renderCards(cards);
   })
   .catch((error) => alert(error.message));
@@ -124,15 +123,17 @@ function handleAddCard(evt) {
           response._id
         )
       );
-      
+
       return response;
     })
     .catch((error) => alert(error.message))
-    .then(function () {
-      setTimeout(() => {
-        evt.target.reset();
-        closePopup(evt.target.closest(".popup_opened"));
-      }, 600);
+    .then(function (result) {
+      if (result) {
+        setTimeout(() => {
+          evt.target.reset();
+          closePopup(evt.target.closest(".popup_opened"));
+        }, 600);
+      }
     })
     .finally(function () {
       setTimeout(() => {
