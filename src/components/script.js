@@ -38,14 +38,15 @@ function handleProfileFormSubmit(evt) {
     })
     .then(function () {
       setTimeout(() => {
-        renderLoading(false, profileEditButton);
-      }, 200);
+        closePopup(profilePopup);
+      }, 600);
     })
     .catch((error) => alert(error.message))
-    .finally(
+    .finally(function() {
       setTimeout(() => {
-        closePopup(profilePopup);
-      }, 600)
+        renderLoading(false, profileEditButton);
+      }, 200);
+    }
     );
 }
 

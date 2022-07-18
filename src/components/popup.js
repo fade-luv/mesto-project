@@ -40,15 +40,15 @@ function loadNewAvatarLocal(evt) {
     .catch((error) => alert(error.message))
     .then(function () {
       setTimeout(() => {
-        renderLoading(false, newAvatarButton);
-      }, 200);
-    })
-    .finally(() =>
-      setTimeout(() => {
         evt.target.reset();
         closePopup(popupEditAvatar);
       }, 600)
-    );
+    })
+    .finally ( function () {
+      setTimeout(() => {
+        renderLoading(false, newAvatarButton);
+      }, 200);
+    })
 }
 
 

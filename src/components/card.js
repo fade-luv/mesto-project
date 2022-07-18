@@ -130,14 +130,14 @@ function handleAddCard(evt) {
     .catch((error) => alert(error.message))
     .then(function () {
       setTimeout(() => {
-        renderLoading(false, submitButton);
-      }, 200);
-    })
-    .finally(function () {
-      setTimeout(() => {
         evt.target.reset();
         closePopup(evt.target.closest(".popup_opened"));
       }, 600);
+    })
+    .finally(function () {
+      setTimeout(() => {
+        renderLoading(false, submitButton);
+      }, 200);
     });
 }
 
