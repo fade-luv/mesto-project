@@ -23,6 +23,8 @@ const renderLoading = (isLoading, button1) => {
     button1.textContent = "Сохранение...";
   } else {
     button1.textContent = "Сохранить";
+    button1.setAttribute("disabled", true);
+    button1.classList.add("popup__btn_disabled");
   }
 };
 

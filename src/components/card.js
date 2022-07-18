@@ -1,5 +1,6 @@
 import { openImagePopup, closePopup, renderLoading } from "./popup.js";
 import {
+  disableButton,
   loadNewCard,
   getCards,
   deleteCardFromServer,
@@ -123,6 +124,7 @@ function handleAddCard(evt) {
           response._id
         )
       );
+      
       return response;
     })
     .catch((error) => alert(error.message))
