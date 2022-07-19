@@ -137,23 +137,31 @@ var renderLoading = function renderLoading(isLoading, button1) {
     button1.textContent = "Сохранение...";
   } else {
     button1.textContent = "Сохранить";
+    button1.setAttribute("disabled", true);
+    button1.classList.add("popup__btn_disabled");
   }
 };
 
-function loadNewAvatarLocal() {
+function loadNewAvatarLocal(evt) {
   loadNewAvatar(popupInputLinkAvatar.value).then(function (response) {
     if (response) {
       renderLoading(true, newAvatarButton);
       profileAvatar.src = popupInputLinkAvatar.value;
-      closePopup(popupEditAvatar);
       return response;
     }
   }).catch(function (error) {
     return alert(error.message);
+  }).then(function (result) {
+    if (result) {
+      setTimeout(function () {
+        evt.target.reset();
+        closePopup(popupEditAvatar);
+      }, 600);
+    }
   }).finally(function () {
-    return setTimeout(function () {
+    setTimeout(function () {
       renderLoading(false, newAvatarButton);
-    }, 500);
+    }, 200);
   });
 }
 
@@ -252,7 +260,6 @@ Promise.all([getUserInfo(), getCards()]).then(function (_ref) {
   document.querySelector(".profile__subtitle").textContent = userData.about;
   document.querySelector(".profile__avatar").src = userData.avatar;
   userId = userData._id;
-  console.log(userId);
   renderCards(cards);
 }).catch(function (error) {
   return alert(error.message);
@@ -342,17 +349,19 @@ function handleAddCard(evt) {
     renderLoading(true, submitButton);
     cardContainer.prepend(createCard(placeName, placeLink, response.likes, response.owner._id, response._id));
     return response;
-  }).then(function (response) {
-    if (response) {
-      setTimeout(function () {
-        closePopup(evt.target.closest(".popup_opened"));
-      }, 200);
-      return response;
-    }
   }).catch(function (error) {
     return alert(error.message);
+  }).then(function (result) {
+    if (result) {
+      setTimeout(function () {
+        evt.target.reset();
+        closePopup(evt.target.closest(".popup_opened"));
+      }, 600);
+    }
   }).finally(function () {
-    renderLoading(false, submitButton);
+    setTimeout(function () {
+      renderLoading(false, submitButton);
+    }, 200);
   });
 }
 
@@ -456,17 +465,22 @@ function fillUserInfo(params) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  updateUser(profileName.textContent, profileJobName.textContent).then(function () {
+  var nameValue = popupInputName.value;
+  var subNameValue = popupInputSubname.value;
+  updateUser(nameValue, subNameValue).then(function (result) {
+    profileName.textContent = result.name;
+    profileJobName.textContent = result.about;
     renderLoading(true, profileEditButton);
-    var nameValue = popupInputName.value;
-    var subNameValue = popupInputSubname.value;
-    profileName.textContent = nameValue;
-    profileJobName.textContent = subNameValue;
   }).then(function () {
-    closePopup(profilePopup);
-  }).catch(function (error) {
-    return alert(error.message);
-  }).finally(renderLoading(false, profileEditButton));
+    setTimeout(function () {
+      evt.target.reset();
+      closePopup(evt.target.closest(".popup_opened"));
+    }, 600);
+  }).finally(function () {
+    setTimeout(function () {
+      renderLoading(false, profileEditButton);
+    }, 200);
+  });
 }
 
 function handleEscape(evt) {
