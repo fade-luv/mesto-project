@@ -17,8 +17,6 @@ const popupInputLinkAvatar = document.querySelector(
 const profileAvatar = document.querySelector(".profile__avatar");
 
 const renderLoading = (isLoading, button1) => {
-  console.log(isLoading);
-  console.log(button1);
   if (isLoading) {
     button1.textContent = "Сохранение...";
   } else {

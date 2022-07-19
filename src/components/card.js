@@ -22,7 +22,6 @@ Promise.all([getUserInfo(), getCards()])
     document.querySelector(".profile__subtitle").textContent = userData.about;
     document.querySelector(".profile__avatar").src = userData.avatar;
     userId = userData._id;
-    console.log(userId);
     renderCards(cards);
   })
   .catch((error) => alert(error.message));

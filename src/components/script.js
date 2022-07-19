@@ -30,17 +30,17 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   const nameValue = popupInputName.value;
   const subNameValue = popupInputSubname.value;
-  profileName.textContent = nameValue;
-  profileJobName.textContent = subNameValue;
-  updateUser(profileName.textContent, profileJobName.textContent)
-    .then(function () {
+  updateUser(nameValue, subNameValue)
+    .then(function (result) {
+      profileName.textContent = result.name;
+      profileJobName.textContent = result.about;
       renderLoading(true, profileEditButton);
     })
     .then(function () {
-        setTimeout(() => {
-          evt.target.reset();
-          closePopup(evt.target.closest(".popup_opened"));
-        }, 600);
+      setTimeout(() => {
+        evt.target.reset();
+        closePopup(evt.target.closest(".popup_opened"));
+      }, 600);
     })
     .finally(function () {
       setTimeout(() => {
